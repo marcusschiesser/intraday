@@ -4,7 +4,7 @@ import numpy as np
 import os
 from datetime import datetime, date, timedelta, timezone
 
-# there's a limit from yfinance to only get intraday date for the last 30 days
+# there's a limit from yfinance to only get intraday data for the last 30 days
 START_DATE = date.today() - timedelta(days=30)
 
 def to_utc(d):
@@ -42,10 +42,13 @@ def get_ticker(ticker):
     # get new data
     t = yf.Ticker(ticker)
     df = t.history(start=start_date, end=end_date, interval="1m")
-    # append new data
-    old_df = old_df.append(df, sort=False)
-    # serialize to CSV
-    old_df.to_csv(get_tickerfile(ticker))
+    if df.empty:
+        print("returned data for ticker is empty - do not update cache")
+    else: 
+        # append new data
+        old_df = old_df.append(df, sort=False)
+        # serialize to CSV
+        old_df.to_csv(get_tickerfile(ticker))
     # return latest data as UTC
     df_to_utc(old_df)
     return old_df

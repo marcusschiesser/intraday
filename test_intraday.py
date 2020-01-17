@@ -13,12 +13,20 @@ def test_get_lastday():
     date = intraday.get_lastday(df)
     assert date == date.fromisoformat("2019-11-20"), "test dataframe must return 2019-11-20"
 
-def test_ticker():
+def test_get_tickers():
+    tickers = intraday.get_tickers(TEST_TICKER)
+    assert len(tickers) == 1
+    assert tickers[0] == 'test', "test ticker must be 'test'"
+
+def test_get_ticker():
     df = intraday.get_ticker('SPY')
     print(df.head())
 
 if __name__ == "__main__":
     test_get_lastday_emptyframe()
     test_get_lastday()
-    test_ticker()
+    test_get_tickers()
+    test_get_ticker()
     print("Everything passed")
+
+

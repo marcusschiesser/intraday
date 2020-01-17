@@ -1,7 +1,7 @@
 import yfinance as yf
 import pandas as pd
 import numpy as np
-import os
+import os, ast
 from datetime import datetime, date, timedelta, timezone
 
 # there's a limit from yfinance to only get intraday data for the last 30 days
@@ -52,3 +52,7 @@ def get_ticker(ticker):
     # return latest data as UTC
     df_to_utc(old_df)
     return old_df
+
+def get_tickers(type):
+    with open(f'./tickers/{type}.py', 'r') as f: 
+        return ast.literal_eval(f.read())

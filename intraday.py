@@ -52,5 +52,6 @@ def get_ticker(ticker):
     return old_df
 
 def get_tickers(type):
-    with open(f'./tickers/{type}.py', 'r') as f: 
+    dirname = os.path.dirname(__file__)
+    with open(f'{dirname}/tickers/{type}.py', 'r') as f: 
         return ast.literal_eval(f.read())

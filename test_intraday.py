@@ -19,8 +19,8 @@ def test_get_tickers():
     assert tickers[0] == 'test', "test ticker must be 'test'"
 
 def test_get_ticker():
-    df = intraday.get_ticker('SPY')
-    print(df.head())
+    date = intraday.get_ticker(TEST_TICKER).index.max().isoformat()
+    assert date == "2019-11-20T14:30:00+00:00", "get_ticker must return time in UTC"
 
 if __name__ == "__main__":
     test_get_lastday_emptyframe()

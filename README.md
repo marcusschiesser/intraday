@@ -16,15 +16,16 @@ intraday data as possible, so please send pull requests with data updates.
 $ git clone https://github.com/marcusschiesser/intraday.git
 ```
 
-2. Then you can call `get_ticker` to retrieve a Dataframe for a ticker symbol, e.g.: for `SPY`:
+2. Then you can call `update_ticker` to update and retrieve a Dataframe for a ticker symbol, e.g.: for `SPY`:
 ```python
 import intraday
-df = intraday.get_ticker('SPY')
+df = intraday.update_ticker('SPY')
 df.head()
 ```
-This method gets the data from the cache (if it exists) and appends 7 days of data from `yfinance`. 
+This method gets the data from the cache (if it exists), appends 7 days of data from `yfinance` and updates the cache. 
 
-3. Alternatively, you can also just get the Dataframe currently stored in the cache for a ticker symbol by calling `get_cache`:
+3. To retrieve the Dataframe currently stored in the cache for a ticker symbol use `get_ticker`:
 ```python
-df = intraday.get_cache('SPY')
+df = intraday.get_ticker('SPY')
 ```
+This method converts the Datetime index to UTC.

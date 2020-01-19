@@ -32,7 +32,7 @@ def get_lastday(df):
     max = df.index.max()
     return max.date()
     
-def get_ticker(ticker):
+def update_ticker(ticker):
     old_df = get_cache(ticker)
     start_date = get_lastday(old_df) + timedelta(days=1)  
     end_date = start_date + timedelta(days=7)  
@@ -47,9 +47,13 @@ def get_ticker(ticker):
         old_df = old_df.append(df, sort=False)
         # serialize to CSV
         old_df.to_csv(get_tickerfile(ticker))
-    # return latest data as UTC
-    df_to_utc(old_df)
     return old_df
+
+def get_ticker(ticker):
+    df = get_cache(ticker)
+    # return latest data as UTC
+    df_to_utc(df)
+    return df
 
 def get_tickers(type):
     dirname = os.path.dirname(__file__)

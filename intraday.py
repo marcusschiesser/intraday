@@ -29,9 +29,7 @@ def get_cache(ticker):
 def get_lastday(df):
     if len(df) == 0:
         return START_DATE
-    df['temp'] = pd.to_datetime(df.index)
-    max = df['temp'].max()
-    df.drop(columns='temp', inplace=True)
+    max = df.index.max()
     return max.date()
     
 def get_ticker(ticker):
